@@ -70,3 +70,7 @@ staticfiles/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# environments
+.envrc
+.env
