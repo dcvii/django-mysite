@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mysite"
+version = "0.1.0"
+description = "A Django polls application"
+requires-python = ">=3.8"
+dependencies = [
+    "django>=2.2.5,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+# Set the maximum line length to 88 (black's default)
+line-length = 88
+
+# Exclude files/directories
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.pyc",
+    "migrations",
+    "manage.py",  # Django's manage.py often has long lines
+]
+
+# Group violations by containing file
+show-fixes = true
+
+[tool.ruff.lint]
+# Enable specific rule sets
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+
+# Ignore specific rules
+ignore = [
+    "E501", # line too long (handled by line-length setting)
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore import violations in __init__.py files
+"__init__.py" = ["F401"]
+# Allow print statements in manage.py and settings
+"manage.py" = ["T201"]
+"**/settings.py" = ["T201"]
+
+[tool.ruff.lint.isort]
+# Django-specific isort configuration
+known-first-party = ["mysite", "polls"]
+section-order = [
+    "future",
+    "standard-library", 
+    "third-party",
+    "first-party",
+    "local-folder"
+]
+
